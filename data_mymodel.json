@@ -1,0 +1,47 @@
+[
+{
+    "fields": {
+        "atributo_boolean": false,
+        "atributo_int": 501,
+        "atributo_string": "valor1"
+    },
+    "model": "myApp.mymodel",
+    "pk": 1
+},
+{
+    "fields": {
+        "atributo_boolean": false,
+        "atributo_int": 402,
+        "atributo_string": "valor2"
+    },
+    "model": "myApp.mymodel",
+    "pk": 2
+},
+{
+    "fields": {
+        "atributo_boolean": false,
+        "atributo_int": 303,
+        "atributo_string": "valor3"
+    },
+    "model": "myApp.mymodel",
+    "pk": 3
+},
+{
+    "fields": {
+        "atributo_boolean": false,
+        "atributo_int": 204,
+        "atributo_string": "valor4"
+    },
+    "model": "myApp.mymodel",
+    "pk": 4
+},
+{
+    "fields": {
+        "atributo_boolean": false,
+        "atributo_int": 105,
+        "atributo_string": "valor5"
+    },
+    "model": "myApp.mymodel",
+    "pk": 5
+}
+]
