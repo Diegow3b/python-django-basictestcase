@@ -36,13 +36,7 @@ $ pip install -r requirements.txt
 ```sh
 $ python manage.py test
 ```
-
-#### 7 - Running tests
-```sh
-$ python manage.py test
-```
-
-#### 8 - Coverage
+#### 7 - Coverage
 ```sh
 $ ./run_coverage.sh
 ```
