@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 class ExemploCaseTests(TestCase):
     '''
     Uma forma de chamar este teste diretamente:
-        python manage.py test myApp.tests.ExemploCaseTests
+        python manage.py test myApp.tests.model_tests.ExemploCaseTests
     '''
     # python manage.py test pedido.tests.test_models.ExemploCaseTests
     def setUp(self):

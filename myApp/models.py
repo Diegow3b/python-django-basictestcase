@@ -21,6 +21,9 @@ class myModel(models.Model):
         self.atributo_string = valor
         self.save()
 
+    def qualquer_coisa(self):
+        return 1+2
+        
     @staticmethod
     def divisaoValores(valor1, valor2):
         try:
