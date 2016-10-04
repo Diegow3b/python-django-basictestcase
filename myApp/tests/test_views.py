@@ -19,10 +19,12 @@ class ExemploViewsCaseTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super(ExemploViewsCaseTests, cls).setUpClass()
-        executable_path = {'executable_path':'/usr/bin/google-chrome'}
-        cls.browser = Browser('chrome', **executable_path)
+        # executable_path = {'executable_path':'/usr/bin/google-chrome'}
+        # executable_path = {'executable_path':'/home/diego/Documents/faculdade/projeto-teste/vm/bin/chromedriver'}
+        # cls.browser = Browser('chrome', **executable_path)
+        cls.browser = Browser('chrome')
         # cls.browser = Browser('phantomjs')
-        cls.browser.driver.maximize_window()
+        # cls.browser.driver.maximize_window()
 
     @classmethod
     def tearDownClass(cls):
@@ -43,7 +45,7 @@ class ExemploViewsCaseTests(StaticLiveServerTestCase):
         self.browser.visit(self.live_server_url + url_create)
         self.browser.find_by_id('id_username').first.fill(self.username)
         self.browser.find_by_id('id_password').first.fill(self.password)
-        self.browser.find_by_value('Acessar').first.click()
+        self.browser.find_by_value('Log in').first.click()
     
     def loginFalhar(self, url_create):
         """
@@ -52,17 +54,25 @@ class ExemploViewsCaseTests(StaticLiveServerTestCase):
         self.browser.visit(self.live_server_url + url_create)
         self.browser.find_by_id('id_username').first.fill('wrong_username')
         self.browser.find_by_id('id_password').first.fill(self.password)
-        self.browser.find_by_value('Acessar').first.click()
+        self.browser.find_by_value('Log in').first.click()
 
     def logout(self):
         self.browser.visit(self.live_server_url + "/admin/logout/")
 
 class AdminTestCase(ExemploViewsCaseTests):
     ADD_URL = '/admin/'
+
+
+    def test_devePassar_login(self): 
+        # self.logout()       
+        self.login(self.ADD_URL)
+        assert self.browser.is_element_present_by_text(
+            'AUTHENTICATION AND AUTHORIZATION'
+            )
     
-    def test_deveFalhar_loginIncorreto(self):        
+    def test_deveFalhar_loginIncorreto(self):  
+        # self.logout()
         self.loginFalhar(self.ADD_URL)
-        self.browser.find_by_value('Log in').first.click()
         assert self.browser.is_element_present_by_text(
             'Please enter the correct username and password for a staff account. Note that both fields may be case-sensitive.'
-            ) is True
+            )
