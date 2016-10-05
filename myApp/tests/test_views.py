@@ -76,3 +76,20 @@ class AdminTestCase(ExemploViewsCaseTests):
         assert self.browser.is_element_present_by_text(
             'Please enter the correct username and password for a staff account. Note that both fields may be case-sensitive.'
             )
+
+    def test_devePassar_inserirModelo(self):
+        ADD_URL = '/admin/myApp/mymodel/add/'
+        self.login(self.ADD_URL)
+        self.browser.find_by_id('id_atributo_string').first.fill('kaka')
+        self.browser.find_by_value('SAVE').first.click()
+        assert self.browser.is_element_present_by_text(
+            'added successfully.'
+            )
+
+    def test_deveFalhar_inserirModelo(self):
+        ADD_URL = '/admin/myApp/mymodel/add/'
+        self.login(self.ADD_URL)
+        self.browser.find_by_value('SAVE').first.click()
+        assert self.browser.is_element_present_by_text(
+            'This field is required.'
+            )
