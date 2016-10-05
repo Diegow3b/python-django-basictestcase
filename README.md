@@ -3,9 +3,15 @@
 ### External Dependency
 Virtualenv
 Python Pip
+Chrome WebDriver
+
 ### Version
-django 1.8
-python 2.7
+chromedriver-installer==0.0.4                                                                                         
+coverage==4.0.3                                                                                                       
+Django==1.8                                                                                                           
+pkg-resources==0.0.0                                                                                                  
+selenium==2.53.6                                                                                                      
+splinter==0.7.4   
 
 ### Installation
 Obs.: If you already have virutalenv and python-pip you can jump to step 3
