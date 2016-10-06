@@ -63,33 +63,58 @@ class AdminTestCase(ExemploViewsCaseTests):
     ADD_URL = '/admin/'
 
 
-    def test_devePassar_login(self): 
-        # self.logout()       
-        self.login(self.ADD_URL)
-        assert self.browser.is_element_present_by_text(
-            'AUTHENTICATION AND AUTHORIZATION'
-            )
+    # def test_devePassar_login(self): 
+    #     # self.logout()       
+    #     self.login(self.ADD_URL)
+    #     assert self.browser.is_element_present_by_text(
+    #         'AUTHENTICATION AND AUTHORIZATION'
+    #         )
     
-    def test_deveFalhar_loginIncorreto(self):  
-        # self.logout()
-        self.loginFalhar(self.ADD_URL)
-        assert self.browser.is_element_present_by_text(
-            'Please enter the correct username and password for a staff account. Note that both fields may be case-sensitive.'
-            )
+    def test_deveFalhar_loginIncorreto(self):          
+        self.loginFalhar(self.ADD_URL)        
+        self.assertTrue(self.browser.is_text_present('Please enter the correct username'))        
 
     def test_devePassar_inserirModelo(self):
-        ADD_URL = '/admin/myApp/mymodel/add/'
+        self.ADD_URL = '/admin/myApp/mymodel/add/'
         self.login(self.ADD_URL)
         self.browser.find_by_id('id_atributo_string').first.fill('kaka')
-        self.browser.find_by_value('SAVE').first.click()
-        assert self.browser.is_element_present_by_text(
-            'added successfully.'
-            )
+        self.browser.find_by_name('_save').first.click()
+        self.assertTrue(self.browser.is_text_present('added successfully.'))
 
     def test_deveFalhar_inserirModelo(self):
-        ADD_URL = '/admin/myApp/mymodel/add/'
+        self.ADD_URL = '/admin/myApp/mymodel/add/'
         self.login(self.ADD_URL)
-        self.browser.find_by_value('SAVE').first.click()
-        assert self.browser.is_element_present_by_text(
-            'This field is required.'
-            )
+        self.browser.find_by_name('_save').first.click()
+        self.assertTrue(self.browser.is_text_present('This field is required.'))
+
+    def test_deveFalhar_invalidTypeAttribute(self):
+        self.ADD_URL = '/admin/myApp/mymodel/add/'
+        self.login(self.ADD_URL)
+        self.browser.find_by_id('id_atributo_int').first.fill('typing string on int field')
+        self.browser.find_by_name('_save').first.click()
+        self.assertTrue(self.browser.is_text_present('Enter a whole number.'))
+
+    def test_devePassar_deleteData(self):
+        self.ADD_URL = '/admin/myApp/mymodel/add/'
+        self.login(self.ADD_URL)
+        self.browser.find_by_id('id_atributo_string').first.fill('teste')
+        self.browser.find_by_id('id_atributo_int').first.fill(1)
+        self.browser.find_by_name('_save').first.click()
+        self.browser.find_by_id('action-toggle').first.check()
+        self.browser.find_by_name('action').first.select('delete_selected')
+        self.browser.find_by_name('index').first.click()
+        self.browser.find_by_value("Yes, I'm sure").first.click()
+        self.assertTrue(self.browser.is_text_present('Successfully deleted'))
+
+    def test_devePassar_editExistingData(self):
+        self.ADD_URL = '/admin/myApp/mymodel/add/'
+        self.login(self.ADD_URL)
+        self.browser.find_by_id('id_atributo_string').first.fill('teste')
+        self.browser.find_by_id('id_atributo_int').first.fill(1)
+        self.browser.find_by_name('_save').first.click()
+        self.assertTrue(self.browser.is_text_present('teste', wait_time=2))
+        self.browser.find_by_xpath(xpath='//th[@class="field-atributo_string"]//a').first.click()        
+        self.browser.find_by_id('id_atributo_string').first.fill('modified')
+        self.browser.find_by_id('id_atributo_int').first.fill(999)
+        self.browser.find_by_name('_save').first.click()
+        self.assertTrue(self.browser.is_text_present('modified'))
