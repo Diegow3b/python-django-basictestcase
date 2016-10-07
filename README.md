@@ -2,7 +2,6 @@
 
 ### External Dependency
 Virtualenv
-Python Pip
 Chrome WebDriver
 
 ### Version
